@@ -1,0 +1,67 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  auto-facebook-sam
+
+  Sample SAM Template for auto-facebook-sam
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  # ==========================
+  # S3 bucket for host static site
+  # Domain: donhang.trcorner.com
+  # ==========================
+  S3Bucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      AccessControl: PublicRead
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      BucketName: auto.sonle.ga
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: false
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        ErrorDocument: index.html
+        IndexDocument: index.html
+  BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref S3Bucket
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - s3:GetObject
+            Effect: Allow
+            Principal:
+              AWS: '*'
+            Resource: !Join
+              - ''
+              - - 'arn:aws:s3:::'
+                - !Ref S3Bucket
+                - /*
+            Sid: PublicReadForGetBucketObjects
+
+Outputs:
+  WebsiteURL:
+    Value: !GetAtt
+      - S3Bucket
+      - WebsiteURL
+    Description: URL for website hosted on S3
+  S3BucketSecureURL:
+    Value: !Join
+      - ''
+      - - 'https://'
+        - !GetAtt
+          - S3Bucket
+          - DomainName
+    Description: Name of S3 bucket to hold website content
