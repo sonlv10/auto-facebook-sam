@@ -21,6 +21,8 @@
 .AppleDouble
 .LSOverride
 
+.idea
+.aws-sam
 # Icon must end with two \r
 Icon
 
