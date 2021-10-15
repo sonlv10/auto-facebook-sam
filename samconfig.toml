@@ -2,9 +2,9 @@ version = 0.1
 [default]
 [default.deploy]
 [default.deploy.parameters]
-stack_name = "auto-facebook"
-s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1eo0jvwwro5zz"
-s3_prefix = "auto-facebook"
+stack_name = "quetbinhluan"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1fiin0gn9obqx"
+s3_prefix = "quetbinhluan"
 region = "ap-southeast-1"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"

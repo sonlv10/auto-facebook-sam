@@ -13,7 +13,7 @@ Globals:
 Resources:
   # ==========================
   # S3 bucket for host static site
-  # Domain: donhang.trcorner.com
+  # Domain: quetbinhluan.com
   # ==========================
   S3Bucket:
     Type: 'AWS::S3::Bucket'
